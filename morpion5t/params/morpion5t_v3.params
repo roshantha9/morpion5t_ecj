@@ -1,0 +1,47 @@
+# parent parameter file
+parent.0		= ../../simple/simple.params
+
+stat = ec.simple.SimpleShortStatistics
+stat.do-time = true
+
+# how many threads ?
+evalthreads = auto
+breedthreads = auto
+
+# overriding from the parent param file
+pop.subpop.0.size = 1000	
+generations = 400
+
+breed.elite.0 = 5
+#breed.elite-fraction.0 = 	0.3
+
+# define the representation
+pop.subpop.0.species = ec.vector.GeneVectorSpecies
+pop.subpop.0.species.ind = ec.vector.GeneVectorIndividual
+pop.subpop.0.species.gene = ec.app.morpion5t.Morpion5tGene
+
+pop.subpop.0.species.fitness = ec.simple.SimpleFitness
+
+# the genome size, 
+# the chunk size (which specifies crossover boundaries -- usually it's just 1), 
+# the crossover type (if we do crossover), 
+# the probability that uniform crossover (if we use it) will cross over a gene, and 
+# the probability that a gene will get mutated (if we do mutation). 
+pop.subpop.0.species.genome-size	= 2000
+pop.subpop.0.species.crossover-type	= two
+pop.subpop.0.species.crossover-prob	= 0.5	
+pop.subpop.0.species.mutation-prob	= 0.05
+
+# specify the breeding pipeline
+# Use our own custom mutation class
+pop.subpop.0.species.pipe = ec.app.morpion5t.Morpion5tMutatorPipeline
+pop.subpop.0.species.pipe.source.0	= ec.vector.breed.VectorCrossoverPipeline
+
+# what are the selection mechanisms ?
+pop.subpop.0.species.pipe.num-sources = 1
+pop.subpop.0.species.pipe.source.0.source.0 = ec.select.TournamentSelection
+pop.subpop.0.species.pipe.source.0.source.1 = same
+select.tournament.size = 2
+
+# where is the fitness evaluation defined ?
+eval.problem            = ec.app.morpion5t.MorpionEval

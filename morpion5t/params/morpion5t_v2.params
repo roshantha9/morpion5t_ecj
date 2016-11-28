@@ -1,0 +1,82 @@
+# parent parameter file
+parent.0		= ../../simple/simple.params
+
+stat.num-children = 1
+stat.child.0 = ec.simple.SimpleShortStatistics
+stat.child.0.file = $out2.stat
+
+# overriding from the parent param file
+pop.subpop.0.size = 1000
+generations = 500
+
+
+# take 10 elites
+breed.elite-fraction.0 = 	0.7
+breed.reevaluate-elites.0 = true
+
+# define the representation
+pop.subpop.0.species		= ec.vector.IntegerVectorSpecies
+pop.subpop.0.species.ind	= ec.vector.IntegerVectorIndividual
+pop.subpop.0.species.fitness = ec.simple.SimpleFitness
+
+# min and max values the integers representations will take
+# Note that min-gene and max-gene are defined in the SPECIES, not in the INDIVIDUAL
+pop.subpop.0.species.min-gene	= 0
+pop.subpop.0.species.max-gene 	= 40
+
+# segments
+#pop.subpop.0.species.num-segments = 4
+#pop.subpop.0.species.segment-type = start
+#pop.subpop.0.species.segment.0.start = 0
+#pop.subpop.0.species.segment.1.start = 125
+#pop.subpop.0.species.segment.2.start = 250
+#pop.subpop.0.species.segment.3.start = 375
+
+
+# min/max
+#pop.subpop.0.species.segment.0.min-gene = 0
+#pop.subpop.0.species.segment.0.max-gene = 9
+
+#pop.subpop.0.species.segment.1.min-gene = 10
+#pop.subpop.0.species.segment.1.max-gene = 19
+
+#pop.subpop.0.species.segment.2.min-gene = 20
+#pop.subpop.0.species.segment.2.max-gene = 29
+
+#pop.subpop.0.species.segment.3.min-gene = 30
+#pop.subpop.0.species.segment.3.max-gene = 40
+
+
+
+# the genome size, 
+# the chunk size (which specifies crossover boundaries -- usually it's just 1), 
+# the crossover type (if we do crossover), 
+# the probability that uniform crossover (if we use it) will cross over a gene, and 
+# the probability that a gene will get mutated (if we do mutation). 
+pop.subpop.0.species.genome-size	= 500
+pop.subpop.0.species.crossover-type	= one
+pop.subpop.0.species.crossover-prob	= 0.2
+pop.subpop.0.species.mutation-prob	= 0.05
+
+# define chunk boundary
+pop.subpop.0.species.chunk-size = 4
+
+
+# specify the breeding pipeline
+# Use our own custom mutation class
+pop.subpop.0.species.pipe = ec.app.morpion5t.Morpion5tMutatorPipeline
+pop.subpop.0.species.pipe.source.0	= ec.vector.breed.VectorCrossoverPipeline
+
+# Toss the second child
+#pop.subpop.0.species.pipe.source.0.toss = true
+pop.subpop.0.species.pipe.source.0.source.0 = ec.select.TournamentSelection
+#pop.subpop.0.species.pipe.source.0.source.0 = ec.select.FitProportionateSelection
+#pop.subpop.0.species.pipe.source.0.source.0.size = 8
+select.tournament.size = 2
+pop.subpop.0.species.pipe.source.0.source.1 = same
+
+
+# Pick the worst individual in the tournament
+#pop.subpop.0.species.pipe.source.0.source.1.pick-worst = true
+
+eval.problem            = ec.app.morpion5t.MorpionEval

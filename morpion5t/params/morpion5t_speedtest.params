@@ -1,0 +1,214 @@
+# parent parameter file
+parent.0		= ../../simple/simple.params
+
+stat = ec.simple.SimpleShortStatistics
+#stat.num-children = 1
+#stat.child.0 = ec.simple.SimpleShortStatistics
+#stat.child.0.file = $out2.stat
+#stat.child.0.do-size = true
+#stat.child.0.do-subpops = true
+stat.do-time = true
+stat.do-final = true
+
+
+#state = ec.app.morpion5t.Morpion5tSimpleEvolutionState
+#jobs = 10
+
+evalthreads = auto
+breedthreads = auto
+
+seed.0=92341
+seed.1=92441
+seed.2=92541
+seed.3=92641
+seed.4=92741
+seed.5=92841
+seed.6=92941
+seed.7=93041
+seed.8=93141
+seed.9=93241
+seed.10=93341
+seed.11=93441
+seed.12=93541
+seed.13=93641
+seed.14=93741
+seed.15=93841
+seed.16=93941
+seed.17=94041
+seed.18=94141
+seed.19=94241
+seed.20=94341
+seed.21=94441
+seed.22=94541
+seed.23=94641
+seed.24=94741
+seed.25=94841
+seed.26=94941
+seed.27=95041
+seed.28=95141
+seed.29=95241
+seed.30=95341
+seed.31=95441
+seed.32=95541
+seed.33=95641
+seed.34=95741
+seed.35=95841
+seed.36=95941
+seed.37=96041
+seed.38=96141
+seed.39=96241
+seed.40=96341
+seed.41=96441
+seed.42=96541
+seed.43=96641
+seed.44=96741
+seed.45=96841
+seed.46=96941
+seed.47=97041
+seed.48=97141
+seed.49=97241
+seed.50=97341
+seed.51=97441
+seed.52=97541
+seed.53=97641
+seed.54=97741
+seed.55=97841
+seed.56=97941
+seed.57=98041
+seed.58=98141
+seed.59=98241
+seed.60=98341
+seed.61=98441
+seed.62=98541
+seed.63=98641
+seed.64=98741
+seed.65=98841
+seed.66=98941
+seed.67=99041
+seed.68=99141
+seed.69=99241
+seed.70=99341
+seed.71=99441
+seed.72=99541
+seed.73=99641
+seed.74=99741
+seed.75=99841
+seed.76=99941
+seed.77=100041
+seed.78=100141
+seed.79=100241
+seed.80=100341
+seed.81=100441
+seed.82=100541
+seed.83=100641
+seed.84=100741
+seed.85=100841
+seed.86=100941
+seed.87=101041
+seed.88=101141
+seed.89=101241
+seed.90=101341
+seed.91=101441
+seed.92=101541
+seed.93=101641
+seed.94=101741
+seed.95=101841
+seed.96=101941
+seed.97=102041
+seed.98=102141
+seed.99=102241
+
+
+# overriding from the parent param file
+#pop.subpop.0.size = 200	
+pop.subpop.0.size = 1000	
+generations = 400
+
+# take 10 elites
+breed.elite.0 = 5
+#breed.elite-fraction.0 = 	0.3565
+#breed.reevaluate-elites.0 = true
+
+# define the representation
+#pop.subpop.0.species		= ec.vector.IntegerVectorSpecies
+#pop.subpop.0.species.ind	= ec.vector.IntegerVectorIndividual
+#pop.subpop.0.species.fitness = ec.simple.SimpleFitness
+
+pop.subpop.0.species = ec.vector.GeneVectorSpecies
+pop.subpop.0.species.ind = ec.vector.GeneVectorIndividual
+pop.subpop.0.species.gene = ec.app.morpion5t.Morpion5tGene
+
+pop.subpop.0.species.fitness = ec.simple.SimpleFitness
+
+# min and max values the integers representations will take
+# Note that min-gene and max-gene are defined in the SPECIES, not in the INDIVIDUAL
+#pop.subpop.0.species.min-gene	= 0
+#pop.subpop.0.species.max-gene 	= 40
+
+# segments
+#pop.subpop.0.species.num-segments = 4
+#pop.subpop.0.species.segment-type = start
+#pop.subpop.0.species.segment.0.start = 0
+#pop.subpop.0.species.segment.1.start = 125
+#pop.subpop.0.species.segment.2.start = 250
+#pop.subpop.0.species.segment.3.start = 375
+
+
+# min/max
+#pop.subpop.0.species.segment.0.min-gene = 0
+#pop.subpop.0.species.segment.0.max-gene = 9
+
+#pop.subpop.0.species.segment.1.min-gene = 10
+#pop.subpop.0.species.segment.1.max-gene = 19
+
+#pop.subpop.0.species.segment.2.min-gene = 20
+#pop.subpop.0.species.segment.2.max-gene = 29
+
+#pop.subpop.0.species.segment.3.min-gene = 30
+#pop.subpop.0.species.segment.3.max-gene = 40
+
+
+
+# the genome size, 
+# the chunk size (which specifies crossover boundaries -- usually it's just 1), 
+# the crossover type (if we do crossover), 
+# the probability that uniform crossover (if we use it) will cross over a gene, and 
+# the probability that a gene will get mutated (if we do mutation). 
+pop.subpop.0.species.genome-size	= 2000
+pop.subpop.0.species.crossover-type	= two
+pop.subpop.0.species.crossover-prob	= 0.5	
+pop.subpop.0.species.mutation-prob	= 0.05
+
+# define chunk boundary
+#pop.subpop.0.species.chunk-size = 4
+
+
+# specify the breeding pipeline
+# Use our own custom mutation class
+pop.subpop.0.species.pipe = ec.app.morpion5t.Morpion5tMutatorPipeline
+#pop.subpop.0.species.pipe = ec.vector.breed.VectorMutationPipeline
+pop.subpop.0.species.pipe.source.0	= ec.vector.breed.VectorCrossoverPipeline
+
+# Toss the second child
+#pop.subpop.0.species.pipe.source.0.toss = true
+#pop.subpop.0.species.pipe.source.0.source.0 = ec.select.TournamentSelection
+#pop.subpop.0.species.pipe.source.0.source.1 = ec.select.TournamentSelection
+
+pop.subpop.0.species.pipe.num-sources = 1
+pop.subpop.0.species.pipe.source.0.source.0 = ec.select.TournamentSelection
+pop.subpop.0.species.pipe.source.0.source.1 = same
+#pop.subpop.0.species.pipe.source.0.source.2 = same
+#pop.subpop.0.species.pipe.source.0.source.3 = same
+
+
+
+#pop.subpop.0.species.pipe.source.0.source.0 = ec.select.FitProportionateSelection
+#pop.subpop.0.species.pipe.source.0.source.0.size = 8
+select.tournament.size = 2
+#pop.subpop.0.species.pipe.source.0.source.1 = same
+
+
+# Pick the worst individual in the tournament
+#pop.subpop.0.species.pipe.source.0.source.1.pick-worst = true
+
+eval.problem            = ec.app.morpion5t.MorpionEval
